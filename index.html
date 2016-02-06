@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Gfexpandablerecyclerview by gfranks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Gfexpandablerecyclerview</h1>
+      <h2 class="project-tagline">GFExpandableRecyclerView was inspired by ExpandableListAdapter to assist in creating a similar experience with RecyclerView</h2>
+      <a href="https://github.com/gfranks/GFExpandableRecyclerView" class="btn">View on GitHub</a>
+      <a href="https://github.com/gfranks/GFExpandableRecyclerView/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/gfranks/GFExpandableRecyclerView/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="gfexpandablerecyclerview" class="anchor" href="#gfexpandablerecyclerview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GFExpandableRecyclerView</h1>
+
+<p>GFExpandableRecyclerView was inspired by ExpandableListAdapter to assist in creating a similar experience with RecyclerView</p>
+
+<h4>
+<a id="basic-example" class="anchor" href="#basic-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Example</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">GroupItem</span> {
+
+    <span class="pl-k">List&lt;<span class="pl-smi">ChildItem</span>&gt;</span> mChildren;
+    <span class="pl-k">public</span> <span class="pl-k">List&lt;<span class="pl-smi">ChildItem</span>&gt;</span> <span class="pl-en">getChildren</span>() {
+        <span class="pl-k">return</span> mChildren;
+    }
+    <span class="pl-c1">...</span>
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ChildItem</span> {
+    <span class="pl-c1">...</span>
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">GroupViewHolder</span> <span class="pl-k">extends</span> <span class="pl-e">RecyclerView</span>.<span class="pl-e">ViewHolder</span> {
+
+    <span class="pl-k">public</span> <span class="pl-en">GroupViewHolder</span>(<span class="pl-smi">View</span> <span class="pl-v">v</span>) {
+        <span class="pl-v">super</span>(v);
+        <span class="pl-c1">...</span>
+    }
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ChildViewHolder</span> <span class="pl-k">extends</span> <span class="pl-e">RecyclerView</span>.<span class="pl-e">ViewHolder</span> {
+
+    <span class="pl-k">public</span> <span class="pl-en">ChildViewHolder</span>(<span class="pl-smi">View</span> <span class="pl-v">v</span>) {
+        <span class="pl-v">super</span>(v);
+        <span class="pl-c1">...</span>
+    }
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SimpleExpandableAdapter</span> <span class="pl-k">extends</span> <span class="pl-e">GFExpandableRecyclerViewAdapter&lt;<span class="pl-smi">GroupItem</span>, <span class="pl-smi">ChildItem</span>, <span class="pl-smi">GroupViewHolder</span>, <span class="pl-smi">ChildViewHolder</span>&gt;</span> {
+
+    <span class="pl-k">private</span> <span class="pl-k">List&lt;<span class="pl-smi">GroupItem</span>&gt;</span> mGroupItems;
+
+    <span class="pl-k">public</span> <span class="pl-en">SimpleExpandableAdapter</span>(<span class="pl-k">List&lt;<span class="pl-smi">GroupItem</span>&gt;</span> <span class="pl-v">groupItems</span>) {
+        mGroupItems <span class="pl-k">=</span> groupItems;
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">List&lt;<span class="pl-smi">GroupItem</span>&gt;</span> <span class="pl-en">getGroupItems</span>() {
+        <span class="pl-k">return</span> mGroupItems;
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-en">getGroupCount</span>() {
+        <span class="pl-k">return</span> mGroupItems<span class="pl-k">.</span>size();
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-en">getChildCount</span>(<span class="pl-k">int</span> <span class="pl-v">groupPosition</span>) {
+        <span class="pl-k">return</span> mGroupItems<span class="pl-k">.</span>get(groupPosition)<span class="pl-k">.</span>getChildren()<span class="pl-k">.</span>size();
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">GroupItem</span> <span class="pl-en">getGroupItem</span>(<span class="pl-k">int</span> <span class="pl-v">groupPosition</span>) {
+        <span class="pl-k">return</span> mGroupItems<span class="pl-k">.</span>get(groupPosition);
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">ChildItem</span> <span class="pl-en">getChildItem</span>(<span class="pl-k">int</span> <span class="pl-v">groupPosition</span>,
+                                  <span class="pl-k">int</span> <span class="pl-v">childPosition</span>) {
+        <span class="pl-k">return</span> mGroupItems<span class="pl-k">.</span>get(groupPosition)<span class="pl-k">.</span>getChildren()<span class="pl-k">.</span>get(childPosition);
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">isGroupInitiallyExpanded</span>(<span class="pl-k">int</span> <span class="pl-v">groupPosition</span>) {
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">GroupViewHolder</span> <span class="pl-en">onCreateGroupViewHolder</span>(<span class="pl-smi">ViewGroup</span> <span class="pl-v">parent</span>,
+                                                   <span class="pl-k">int</span> <span class="pl-v">viewType</span>) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">GroupViewHolder</span>(<span class="pl-smi">LayoutInflater</span><span class="pl-k">.</span>from(parent<span class="pl-k">.</span>getContext())<span class="pl-k">.</span>inflate(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>group_item, parent, <span class="pl-c1">false</span>));
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">ChildViewHolder</span> <span class="pl-en">onCreateChildViewHolder</span>(<span class="pl-smi">ViewGroup</span> <span class="pl-v">parent</span>,
+                                                   <span class="pl-k">int</span> <span class="pl-v">viewType</span>) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">ChildViewHolder</span>(<span class="pl-smi">LayoutInflater</span><span class="pl-k">.</span>from(parent<span class="pl-k">.</span>getContext())<span class="pl-k">.</span>inflate(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>child_item, parent, <span class="pl-c1">false</span>));
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onBindGroupViewHolder</span>(<span class="pl-smi">GroupViewHolder</span> <span class="pl-v">holder</span>,
+                                      <span class="pl-k">int</span> <span class="pl-v">groupPosition</span>,
+                                      <span class="pl-smi">GroupItem</span> <span class="pl-v">groupItem</span>,
+                                      <span class="pl-k">boolean</span> <span class="pl-v">isExpanded</span>) {
+        <span class="pl-c">// set group values</span>
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onBindChildViewHolder</span>(<span class="pl-smi">ChildViewHolder</span> <span class="pl-v">holder</span>,
+                                      <span class="pl-k">int</span> <span class="pl-v">groupPosition</span>,
+                                      <span class="pl-k">int</span> <span class="pl-v">childPosition</span>,
+                                      <span class="pl-smi">ChildItem</span> <span class="pl-v">verticalChildItem</span>) {
+        <span class="pl-c">// set child values</span>
+    }
+}</pre></div>
+
+<h2>
+<a id="callback-methods" class="anchor" href="#callback-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback Methods:</h2>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">/**</span>
+<span class="pl-c"> * OnGroupExpandCollapseListener</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">boolean</span> isGroupExpandable(<span class="pl-k">int</span> groupPosition); <span class="pl-c">// tell adapter is this group should initially be expanded</span>
+<span class="pl-k">void</span> onGroupExpand(<span class="pl-k">int</span> groupPosition); <span class="pl-c">// callback when a group is expanded</span>
+<span class="pl-k">void</span> onGroupCollapse(<span class="pl-k">int</span> groupPosition); <span class="pl-c">// callback when a group is collapsed</span>
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * OnGroupClickListener, Callback when group item is clicked</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">void</span> onGroupClick(<span class="pl-smi">GFExpandableRecyclerViewAdapter</span> adapter,
+                  <span class="pl-smi">View</span> v,
+                  <span class="pl-k">int</span> groupPosition);
+
+<span class="pl-c">/**</span>
+<span class="pl-c"> * OnChildClickListener, Callback when child item is clicked</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">void</span> onChildClick(<span class="pl-smi">GFExpandableRecyclerViewAdapter</span> adapter,
+                  <span class="pl-smi">View</span> v,
+                  <span class="pl-k">int</span> groupPosition,
+                  <span class="pl-k">int</span> childPosition);</pre></div>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation:</h2>
+
+<h3>
+<a id="directly-include-source-into-your-projects" class="anchor" href="#directly-include-source-into-your-projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directly include source into your projects</h3>
+
+<ul>
+<li>Simply copy the source/resource files from the library folder into your project.</li>
+</ul>
+
+<h3>
+<a id="use-binary-approach" class="anchor" href="#use-binary-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use binary approach</h3>
+
+<ul>
+<li>
+<p>Follow these steps to include aar binary in your project:</p>
+
+<p>1: Copy com.github.gfranks.expandablerecyclerview-1.0.aar into your projects libs/ directory.</p>
+
+<p>2: Include the following either in your top level build.gradle file or your module specific one:</p>
+
+<pre><code>  repositories {
+     flatDir {
+         dirs 'libs'
+     }
+ }
+</code></pre>
+
+<p>3: Under your dependencies for your main module's build.gradle file, you can reference that aar file like so:
+<code>compile 'com.github.gfranks.expandablerecyclerview:com.github.gfranks.expandablerecyclerview-1.0@aar'</code></p>
+</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright (c) 2015 Garrett Franks. All rights reserved.</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/gfranks/GFExpandableRecyclerView">Gfexpandablerecyclerview</a> is maintained by <a href="https://github.com/gfranks">gfranks</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
