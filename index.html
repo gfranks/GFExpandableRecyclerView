@@ -135,6 +135,48 @@ recyclerView<span class="pl-k">.</span>addItemDecoration(<span class="pl-k">new<
 }</pre></div>
 
 <h2>
+<a id="item-animators" class="anchor" href="#item-animators" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Item Animators:</h2>
+
+<p>A BaseItemAnimator class is included to assist in item animation. By default, a FadeInItemAnimator will be used, however,
+you may create your own animator by extending the BaseItemAnimator, and implementing your own animations. See FadeInItemAnimator
+for an example of this or please refer to <a href="https://github.com/wasabeef/recyclerview-animators">https://github.com/wasabeef/recyclerview-animators</a> to see examples as this was taken from
+this example.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SampleItemAnimator</span> <span class="pl-k">extends</span> <span class="pl-e">BaseItemAnimator</span> {
+
+    <span class="pl-k">public</span> <span class="pl-en">FadeInItemAnimator</span>() {
+    }
+
+    <span class="pl-k">public</span> <span class="pl-en">FadeInItemAnimator</span>(<span class="pl-smi">Interpolator</span> <span class="pl-v">interpolator</span>) {
+        mInterpolator <span class="pl-k">=</span> interpolator;
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">preAnimateRemoveImpl</span>(<span class="pl-smi">RecyclerView</span>.<span class="pl-smi">ViewHolder</span> <span class="pl-v">holder</span>) {
+        <span class="pl-c">// do pre remove animation</span>
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">preAnimateAddImpl</span>(<span class="pl-smi">RecyclerView</span>.<span class="pl-smi">ViewHolder</span> <span class="pl-v">holder</span>) {
+        <span class="pl-c">// do pre add animation</span>
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">animateRemoveImpl</span>(<span class="pl-k">final</span> <span class="pl-smi">RecyclerView</span>.<span class="pl-smi">ViewHolder</span> <span class="pl-v">holder</span>) {
+        <span class="pl-c">// do remove animation</span>
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">protected</span> <span class="pl-k">void</span> <span class="pl-en">animateAddImpl</span>(<span class="pl-k">final</span> <span class="pl-smi">RecyclerView</span>.<span class="pl-smi">ViewHolder</span> <span class="pl-v">holder</span>) {
+        <span class="pl-c">// do add animation</span>
+    }
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre>recyclerView<span class="pl-k">.</span>setItemAnimator(<span class="pl-k">new</span> <span class="pl-smi">SampleItemAnimator</span>());
+<span class="pl-c">// or</span>
+recyclerView<span class="pl-k">.</span>setItemAnimator(<span class="pl-k">new</span> <span class="pl-smi">SampleItemAnimator</span>(<span class="pl-k">new</span> <span class="pl-smi">Interpolator</span>(<span class="pl-c1">1f</span>)));</pre></div>
+
+<h2>
 <a id="callback-methods" class="anchor" href="#callback-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback Methods:</h2>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-c">/**</span>
